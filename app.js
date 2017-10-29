@@ -5,11 +5,28 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var authenticate = require('./auth/index');
+var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+//set session
+app.use(session({
+  secret: 'CNCFC',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+// Custom flash middleware -- from Ethan Brown's book, 'Web Development with Node & Express'
+app.use(function(req, res, next){
+  // if there's a flash message in the session request, make it available in the response, then delete it
+  res.locals.sessionFlash = req.session.sessionFlash;
+  delete req.session.sessionFlash;
+  next();
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

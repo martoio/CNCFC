@@ -1,2 +1,13 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
+
+
+{{#if expressFlash}}
+    <p><strong>FLASH!</strong> {{ expressFlash }}</p>
+{{/if}}
+
+{{#if sessionFlash.message}}
+    <div class="{{ sessionFlash.type }}">
+        <strong>FLASH!</strong> {{ sessionFlash.message }}
+    </div>
+{{/if}}
