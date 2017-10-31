@@ -1,11 +1,3 @@
-
-/*
-var passport = require('passport')
-, LocalStrategy = require('passport-local').Strategy;
-
-passport.use('cnc.logon.local', new LocalStrategy(
-function(username, password, done) {
-*/
 let users = {
     
         teacher: {
@@ -39,8 +31,6 @@ function logon(username, password){
     if(!Object.keys(users).includes(username)){
         return false;
     }
-
-    console.log(username);
     /*
     TODO: implement a better strategy for this. Hard coded at the moment
     cuz lack of time.
@@ -48,16 +38,12 @@ function logon(username, password){
     
     //TEST if teacher:
     if(isTeacher(username, password)){
-        console.log("TEACHER");
         return users[username];
     } else if (isStudent(username, password)){
         let student = users[username];
-        console.log("STUDENT");
         if (!student.isAuthorized) {
-            console.log("NOT AUTH");
             return false;
-        } else {
-            console.log("AUTH");
+        } else {            
             return users[username];
         }
         
