@@ -48,7 +48,11 @@ router.post('/login', function(req, res, next){
 });
 
 
+router.post('/print-file', function(req, res, next){
 
+	console.log(res.body);
+
+});
 
 
 module.exports = router;
