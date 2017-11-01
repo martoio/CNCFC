@@ -14,7 +14,6 @@ router.get('/', function(req, res, next) {
 	}
 });
 
-
 /**
  * AUTH BELOW
  */
@@ -47,6 +46,10 @@ router.post('/login', function(req, res, next){
 		res.redirect('/login');
 	}
 });
+
+
+
+
 
 module.exports = router;
 

@@ -31,4 +31,38 @@ a {
 }
 .container .col .card .btn-primary{
   width: 100%;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.card .icon-image i::before{
+  margin: 0;
+  font-size: 12rem;
+}
+/* Magic trickery to hide the ugly default file input */
+label{
+  margin: 0;
+}
+
+.file-select{
+  display: flex;
+  justify-content: space-around;
+}
+
+#accept-file{
+  display: none;
+}
+
+.container .col .card .file-chosen{
+  display: inline-block;
+  width: 45%;
+}
+
+.hide-file {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
