@@ -1,5 +1,11 @@
-var express = require('express');
-var router = express.Router();
+var express 	= require('express');
+const path 		= require('path');
+const fs 		= require('fs');
+var formidable 	= require('formidable');
+
+
+var router 		= express.Router();
+
 
 var authenticate = require('../auth/index');
 
@@ -49,6 +55,28 @@ router.post('/login', function(req, res, next){
 
 
 router.post('/print-file', function(req, res, next){
+
+	var form = new formidable.IncomingForm();
+	form.uploadDir = path.join(__dirname, '../print-uploads');
+
+	// every time a file has been uploaded successfully,
+	// rename it to it's orignal name
+	form.on('file', function(field, file) {
+		fs.rename(file.path, path.join(form.uploadDir, file.name));
+	});
+
+	// log any errors that occur
+	form.on('error', function(err) {
+		console.log('An error has occured: \n' + err);
+	});
+
+	// once all the files have been uploaded, send a response to the client
+	form.on('end', function() {
+		res.end('success');
+	});
+
+	// parse the incoming request containing the form data
+	form.parse(req);
 
 	console.log(res.body);
 

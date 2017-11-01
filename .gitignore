@@ -4,6 +4,9 @@
 logs
 *.log
 
+# Uploaded files
+print-uploads/*
+
 # Runtime data
 pids
 *.pid
