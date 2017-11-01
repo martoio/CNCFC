@@ -1,0 +1,41 @@
+<div class="text-center">
+  <img src="http://lorempixel.com/500/340" class="rounded" alt="...">
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" src="http://lorempixel.com/320/240" alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title">Load file</h4>
+                    <p class="card-text">Load from a file attached via USB.</p>
+                    <a href="#" class="btn btn-primary">CHOOSE FILE</a>
+                </div>
+            </div>        
+        </div>
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" src="http://lorempixel.com/320/240" alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title">Free sketch</h4>
+                    <p class="card-text">Draw a 2D sketch to carve into foam!</p>
+                    <a href="#" class="btn btn-primary">SKETCH</a>
+                </div>
+            </div>        
+        </div>
+
+       {{#if showTeacherOptions}}
+        <div class="col">
+            <div class="card">
+                <img class="card-img-top" src="http://lorempixel.com/320/240" alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title">Admin Settings</h4>
+                    <p class="card-text">Advanced administrative settings.</p>
+                    <a href="#" class="btn btn-primary">Settings</a>
+                </div>
+            </div>        
+        </div>
+        {{/if}}
+    </div>
+</div>

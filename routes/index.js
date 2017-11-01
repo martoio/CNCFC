@@ -8,7 +8,7 @@ var authenticate = require('../auth/index');
 router.get('/', function(req, res, next) {
 	console.log(req.session);
 	if(req.session.isAuthenticated){
-		res.render('index', { title: 'Express' });
+		res.render('home/index', { title: 'Express', showTeacherOptions: (req.session.user.isTeacher == true) });
 	} else {
 		res.redirect('/login');
 	}
@@ -34,14 +34,14 @@ router.post('/login', function(req, res, next){
 		req.session.isAuthenticated = true;
 		req.session.user = user;
 		req.session.sessionFlash = {
-			type: 'success',
+			type: 'alert alert-success',
 			message: 'Auth success. Welcome! You are signed in as a: '+ ((user.isTeacher) ? 'teacher' : 'student' )
 		};
 		res.redirect('/');
 	} else {
 		//TODO: Implement better stuff here:
 		req.session.sessionFlash = {
-			type: 'fail',
+			type: 'alert alert-danger',
 			message: 'Authentication failed. Make sure you provide a valid username/password combination and that you are authorized to use this machine'
 		};
 		res.redirect('/login');
