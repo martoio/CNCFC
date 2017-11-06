@@ -53,8 +53,8 @@ router.post('/login', function(req, res, next){
 	}
 });
 
-
-router.post('/print-file', function(req, res, next){
+//TODO: CHANGE THIS TO POST ONLY!!!!
+router.all('/print-file', function(req, res, next){
 
 	var form = new formidable.IncomingForm();
 	form.uploadDir = path.join(__dirname, '../print-uploads');
@@ -72,7 +72,17 @@ router.post('/print-file', function(req, res, next){
 
 	// once all the files have been uploaded, send a response to the client
 	form.on('end', function() {
-		res.end('success');
+
+		let svgPath = path.join(__dirname, '../print-uploads/driller.svg');
+		let gCode = fs.readFileSync(path.join(__dirname, '../gcode/driller.gcode'), 'utf8');
+
+
+		console.log(gCode);
+		sleep(2000);
+		res.render('print/file-upload', {
+			svg: svgPath,
+			gcode: gCode
+		});
 	});
 
 	// parse the incoming request containing the form data
@@ -82,6 +92,15 @@ router.post('/print-file', function(req, res, next){
 
 });
 
+
+function sleep(milliseconds) {
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++) {
+	  if ((new Date().getTime() - start) > milliseconds){
+		break;
+	  }
+	}
+  }
 
 module.exports = router;
 

@@ -1,5 +1,6 @@
 body {
   font-family: 'Open Sans', sans-serif;
+  background: url('../images/spiration_dark.png');
 }
 
 a {
@@ -13,6 +14,10 @@ a {
   text-align: center;
 }
 
+#login{
+  align-items: center;
+}
+
 
 
 /* Index Dashboard */
@@ -20,10 +25,15 @@ a {
 .text-center{
   margin-bottom: 8px;
   margin-top: 8px;
+  height: 320px;
 }
 
+.text-center img{
+  height: 90%;
+}
 .container .card{
   min-height: 450px;
+  border: 2px solid #88A0A8;
 }
 
 .container .col .card{
@@ -65,4 +75,87 @@ label{
 	overflow: hidden;
 	position: absolute;
 	z-index: -1;
+}
+
+
+/* Print Preview page */
+nav{
+  background: #eee;
+}
+nav a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+nav h1{
+  display: block;
+  text-align: center;
+  flex-grow: 1;
+}
+
+#preview{
+  height: 480px;
+  background: plum;
+  margin-bottom: 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #88A0A8;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+#preview .viewer{
+  flex-grow: 1;
+  height: 90%;
+}
+
+#preview .img{
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+#preview .img img{
+  height: 75%;
+}
+
+#preview .code{
+  display: none;
+  overflow-y: scroll;
+  height: 90%;
+  padding: 12px;
+}
+
+#preview .controls{
+  display: flex;
+  justify-content: space-around;
+}
+
+#preview i.active{
+  background: #0069d9!important;
+  color: white;
+}
+
+#preview i{
+  background: #eee;
+  width: 50%;
+  text-align: center;
+}
+#preview i:nth-of-type(2){
+  border-left: 1px solid #aaa;
+}
+
+#preview i::before{
+  font-size: 2rem;
+}
+
+
+section.container .card{
+  min-height: 355px;
+}
+section.container .card .icon-image i::before{
+  margin: 0;
+  font-size: 8rem;
 }

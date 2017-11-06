@@ -1,6 +1,6 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 01/11/2017 19:49
+    Creation date: 01/11/2017 23:55
     */
 
     @font-face {
@@ -36,12 +36,18 @@
   font-smoothing: antialiased;
     }
 
-    .flaticon-drilling-machine:before { content: "\f100"; }
-.flaticon-admin-with-cogwheels:before { content: "\f101"; }
-.flaticon-usb:before { content: "\f102"; }
-.flaticon-drawing:before { content: "\f103"; }
+    .flaticon-picture:before { content: "\f100"; }
+.flaticon-html-coding:before { content: "\f101"; }
+.flaticon-settings:before { content: "\f102"; }
+.flaticon-sketchbook:before { content: "\f103"; }
+.flaticon-usb:before { content: "\f104"; }
+.flaticon-drilling-machine:before { content: "\f105"; }
+.flaticon-admin-with-cogwheels:before { content: "\f106"; }
     
-    $font-Flaticon-drilling-machine: "\f100";
-    $font-Flaticon-admin-with-cogwheels: "\f101";
-    $font-Flaticon-usb: "\f102";
-    $font-Flaticon-drawing: "\f103";
+    $font-Flaticon-picture: "\f100";
+    $font-Flaticon-html-coding: "\f101";
+    $font-Flaticon-settings: "\f102";
+    $font-Flaticon-sketchbook: "\f103";
+    $font-Flaticon-usb: "\f104";
+    $font-Flaticon-drilling-machine: "\f105";
+    $font-Flaticon-admin-with-cogwheels: "\f106";

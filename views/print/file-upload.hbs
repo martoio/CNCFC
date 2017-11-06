@@ -1,0 +1,132 @@
+<nav class="nav bg-dark text-light">
+    <a class="nav-link active" href="/">
+        <i class="material-icons">chevron_left</i>
+        <span>HOME</span>
+    </a>  
+    <h1>Print Preview</h1>
+</nav>
+
+
+<section id="preview" class="container">
+    <div class="viewer">
+        <div class="img">
+            <img src="images/driller.svg" alt="">
+        </div>
+        <div class="code">
+            {{#if gcode}}
+                <pre>{{gcode}}</pre>
+            {{/if}}
+        </div>
+
+    </div>
+    <div class="controls">
+        <i class="flaticon-picture  bg-dark text-light active" data-toggle="img"></i>
+        <i class="flaticon-html-coding bg-dark text-light" data-toggle="code"></i>
+    </div>
+</section>
+
+<section class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card bg-dark text-light">
+                <div class="icon-image card-img-top">
+                    <i class="flaticon-usb"></i>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Load file</h4>
+                    <p class="card-text">Load from a file attached via USB.</p>
+                    {{!-- Magic trickery to display a pretty file input field --}}
+                    <form action="/print-file" method="POST" class="file-select" enctype="multipart/form-data">
+                        <label for="file-choose" id="file-label" class="btn btn-primary">Choose File</label>
+                        <input type="file" name="file" id="file-choose" class="hide-file">
+                        <button id="accept-file" class="file-accept btn">
+                            <i class="material-icons">check</i>
+                        </button>
+                        
+                    </form>
+                    {{!-- <a href="#" class="btn btn-primary">Choose File</a> <!-- Text capitalization done in CSS --> --}}
+                </div>
+            </div>        
+        </div>
+        <div class="col">
+            <div class="card bg-dark text-light">
+                <div class="icon-image card-img-top">
+                    <i class="flaticon-drilling-machine"></i>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Cut</h4>
+                    <p class="card-text">Cut file from foam</p>
+                    <a href="#" class="btn btn-primary">Cut</a>
+                </div>
+            </div>        
+        </div>
+
+        <div class="col">
+            <div class="card bg-dark text-light">
+                <div class="icon-image card-img-top">
+                    <i class="flaticon-settings"></i>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Cut Settings</h4>
+                    <p class="card-text">Adjust settings</p>
+                    <a href="#" class="btn btn-primary">Settings</a>
+                </div>
+            </div>        
+        </div>
+    </div>
+</section>
+
+<script>
+
+$('#preview i').on('click', function(){
+    if($(this).hasClass('active')){
+        return false;
+    }
+    $('#preview i').toggleClass('active');
+
+    var data = $(this).attr('data-toggle');
+    if(data === 'img'){
+        $('#preview .img').show();
+        $('#preview .code').hide();
+    } else {
+        $('#preview .img').hide();
+        $('#preview .code').show();
+    }
+});
+
+</script>
+
+<script>
+
+
+
+var inputs = document.querySelectorAll( '#file-choose' );
+Array.prototype.forEach.call( inputs, function( input )
+{
+	var label	 = document.getElementById('file-label');
+	var labelVal = label.innerHTML;
+    var yesBtn   = document.getElementById('accept-file');
+
+	input.addEventListener( 'change', function( e ){
+
+        console.log(this.files);
+		var fileName = '';
+		if( this.files && this.files.length > 1 )
+			fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+		else
+			fileName = e.target.value.split( '\\' ).pop();
+
+		if( fileName ){
+            label.innerHTML = fileName;
+            label.className += " file-chosen";
+            yesBtn.className += " btn-success file-chosen";
+            yesBtn.style.display = "inline-block";
+        }
+		else
+			label.innerHTML = labelVal;
+
+        
+	});
+});
+
+</script>
