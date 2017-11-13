@@ -1,20 +1,20 @@
-var express 	= require('express');
+let express 	= require('express');
 const path 		= require('path');
 const fs 		= require('fs');
-var formidable 	= require('formidable');
+let formidable 	= require('formidable');
 
 
-var router 		= express.Router();
+let router 		= express.Router();
 
 
-var authenticate = require('../auth/index');
+let authenticate = require('../auth/index');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
 	console.log(req.session);
 	if(req.session.isAuthenticated){
-		res.render('home/index', { title: 'Express', showTeacherOptions: (req.session.user.isTeacher == true) });
+		res.render('home/index', { title: 'Express', showTeacherOptions: (req.session.user.isTeacher === true) });
 	} else {
 		res.redirect('/login');
 	}
@@ -25,11 +25,11 @@ router.get('/', function(req, res, next) {
  */
 /* GET Auth Page */
 
-router.get('/login', function(req, res, next){
+router.get('/login', function(req, res){
 	res.render('auth/login', {title: "Not Logged in!"});
 });
 
-router.post('/login', function(req, res, next){
+router.post('/login', function(req, res){
 	let username = req.body.username;
 	let password = req.body.password;
 	
@@ -54,9 +54,9 @@ router.post('/login', function(req, res, next){
 });
 
 //TODO: CHANGE THIS TO POST ONLY!!!!
-router.all('/print-file', function(req, res, next){
+router.all('/print-file', function(req, res){
 
-	var form = new formidable.IncomingForm();
+	let form = new formidable.IncomingForm();
 	form.uploadDir = path.join(__dirname, '../print-uploads');
 
 	// every time a file has been uploaded successfully,
@@ -94,8 +94,8 @@ router.all('/print-file', function(req, res, next){
 
 
 function sleep(milliseconds) {
-	var start = new Date().getTime();
-	for (var i = 0; i < 1e7; i++) {
+	let start = new Date().getTime();
+	for (let i = 0; i < 1e7; i++) {
 	  if ((new Date().getTime() - start) > milliseconds){
 		break;
 	  }
