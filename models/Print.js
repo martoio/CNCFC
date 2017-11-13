@@ -1,55 +1,23 @@
-class Print{
-    constructor(params){
-        this.user = params.user;
-        this._name = params._name;
-        this._file = params._file;
-        this._time = params._time;
-        this.status = params.status;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+//Create a new schema
+const PrintSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'user'
+    },
+    filename:{
+        type: String,
+        required: true
+    },
+    settings: {
+        type: Schema.Types.Mixed
     }
-
-    get name() {
-        return this._name;
-    }
-
-    set name(value) {
-        this._name = value;
-    }
-
-    get file() {
-        return this._file;
-    }
-
-    set file(value) {
-        this._file = value;
-    }
-
-    get time() {
-        return this._time;
-    }
-
-    set time(value) {
-        this._time = value;
-    }
-
-    updateStatus(status){
-        this.status = status;
-    }
-
-
-}
-
-/*
-
-Print{
-    user: username,
-    print-name: name,
-    file: gcode-file,
-    timestamp: time,
-    status: status,
-
-
-
-}
-
-
- */
+});
+//create a model and export
+const Print = mongoose.model('print', PrintSchema);
+module.exports = Print;

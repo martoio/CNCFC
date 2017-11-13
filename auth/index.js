@@ -19,49 +19,48 @@ let users = {
             isAuthorized: false
         }
     
-    };
+};
 
-function logon(username, password){
-    //Sanity checks
-    //undefined
-    if(typeof username === 'undefined' || typeof password === 'undefined'){
-        return false;
-    }
-    //in keys
-    if(!Object.keys(users).includes(username)){
-        return false;
-    }
-    /*
-    TODO: implement a better strategy for this. Hard coded at the moment
-    cuz lack of time.
-    */
-    
-    //TEST if teacher:
-    if(isTeacher(username, password)){
-        return users[username];
-    } else if (isStudent(username, password)){
-        let student = users[username];
-        if (!student.isAuthorized) {
-            return false;
-        } else {            
-            return users[username];
+
+const User = require('../models/User');
+
+module.exports = {
+
+    login: async (req, res, next) => {
+        const {username, password} = req.value.body;
+        //check if user exists
+        const user = await User.findOne({ username });
+        //if user doesn't exist, exit with 401
+        if(!user){
+            req.session.sessionFlash = {
+                type: 'alert alert-danger',
+                message: 'Authentication failed. Make sure you provide a valid username/password combination and that you are authorized to use this machine'
+            };
+            res.redirect('/login');
         }
-        
-    } else {
-        return false;
-    }
+        //check if password is valid;
+        const isValidPassword = await user.isValidPassword(password);
+        //if not a valid password, redirect with error
+        if(!isValidPassword){
+            req.session.sessionFlash = {
+                type: 'alert alert-danger',
+                message: 'Authentication failed. Make sure you provide a valid username/password combination and that you are authorized to use this machine'
+            };
+            res.redirect('/login');
+        }
+        req.session.isAuthenticated = true;
+        req.session.user = user;
+        req.session.sessionFlash = {
+            type: 'alert alert-success',
+            message: 'Auth success. Welcome! You are signed in as a: '+ ((user.isTeacher) ? 'teacher' : 'student' )
+        };
+        res.redirect('/');
+    },
+    isAuthenticated: (req, res, next) => {
+        if(!req.session.isAuthenticated){
+            return res.redirect('/login');
+        }
+        next();
+    },
 
-}
-
-module.exports = logon;
-   
- // });
-
-
-function isTeacher(uname, password){
-    return (users[uname].password === password && users[uname].isTeacher);
-}
-
-function isStudent(uname, password){
-    return (users[uname].password === password && users[uname].isTeacher === false);
-}
+};

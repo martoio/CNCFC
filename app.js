@@ -7,6 +7,10 @@ var bodyParser = require('body-parser');
 var authenticate = require('./auth/index');
 var session = require('express-session');
 
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/CNCFC');
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 

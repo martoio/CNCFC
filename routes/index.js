@@ -2,22 +2,15 @@ let express 	= require('express');
 const path 		= require('path');
 const fs 		= require('fs');
 let formidable 	= require('formidable');
-
-
-let router 		= express.Router();
-
-
-let authenticate = require('../auth/index');
+const {validateBody, schemas} = require('../util/index');
+let router 		= require('express-promise-router')();
+let Auth = require('../auth/index');
 
 
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/', Auth.isAuthenticated, function(req, res) {
 	console.log(req.session);
-	if(req.session.isAuthenticated){
-		res.render('home/index', { title: 'Express', showTeacherOptions: (req.session.user.isTeacher === true) });
-	} else {
-		res.redirect('/login');
-	}
+    res.render('home/index', { title: 'Express', showTeacherOptions: (req.session.user.isTeacher === true) });
 });
 
 /**
@@ -29,29 +22,8 @@ router.get('/login', function(req, res){
 	res.render('auth/login', {title: "Not Logged in!"});
 });
 
-router.post('/login', function(req, res){
-	let username = req.body.username;
-	let password = req.body.password;
-	
-	let user = authenticate(username, password);
-	console.log(`${user}`);
-	if(user){
-		req.session.isAuthenticated = true;
-		req.session.user = user;
-		req.session.sessionFlash = {
-			type: 'alert alert-success',
-			message: 'Auth success. Welcome! You are signed in as a: '+ ((user.isTeacher) ? 'teacher' : 'student' )
-		};
-		res.redirect('/');
-	} else {
-		//TODO: Implement better stuff here:
-		req.session.sessionFlash = {
-			type: 'alert alert-danger',
-			message: 'Authentication failed. Make sure you provide a valid username/password combination and that you are authorized to use this machine'
-		};
-		res.redirect('/login');
-	}
-});
+//Login controller implementation in auth/index.js
+router.post('/login', validateBody(schemas.authSchema), Auth.login);
 
 //TODO: CHANGE THIS TO POST ONLY!!!!
 router.all('/print-file', function(req, res){
