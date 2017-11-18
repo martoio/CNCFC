@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var authenticate = require('./auth/index');
+var authenticate = require('./controllers/auth');
 var session = require('express-session');
 
 const mongoose = require('mongoose');
@@ -43,6 +43,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//second static file import to point at the print-uploads folder. Convenience of getting the SVG preview working quickly
+app.use(express.static(path.join(__dirname, 'print-uploads')));
+
 
 app.use('/', index);
 app.use('/users', users);
