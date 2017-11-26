@@ -14,8 +14,25 @@ const PrintSchema = new Schema({
         type: String,
         required: true
     },
+    gCodePath:{
+        type: String,
+        default: null
+    },
     settings: {
         type: Schema.Types.Mixed
+    },
+    status:{
+        type: String,
+        enum: ['PRINTING', 'CAM', 'NOT_STARTED', 'ERROR'],
+        default: 'NOT_STARTED'
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    updated: {
+        type: Date,
+        default: Date.now
     }
 });
 //create a model and export

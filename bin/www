@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+require('dotenv').config();
 var app = require('../app');
 var debug = require('debug')('cncfc:server');
 var http = require('http');
@@ -20,6 +20,16 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+/**
+ * Create Socket.io server
+ */
+let io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log(socket.id);
+
+  socket.on('message', console.log);
+});
 
 /**
  * Listen on provided port, on all network interfaces.

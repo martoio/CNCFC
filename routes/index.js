@@ -1,12 +1,9 @@
-const path 		= require('path');
-const fs 		= require('fs');
-let formidable 	= require('formidable');
+
 const {validateBody, schemas} = require('../util/index');
 let router 		= require('express-promise-router')();
 const AuthController =  require('../controllers/auth');
 const PrintController = require('../controllers/print');
-const Print = require('../models/Print');
-const User = require('../models/User');
+
 
 
 /* GET home page. */
@@ -30,9 +27,7 @@ router.route('/print-file')
     .all(AuthController.isAuthenticated)
     .post(PrintController.uploadFile);
 
-router.post('/print', AuthController.isAuthenticated, function (req, res, next) {
-
-});
+router.get('/print', AuthController.isAuthenticated, PrintController.printFile);
 
 router.route('/admin-settings')
     .all(AuthController.isAuthenticated, AuthController.isAdmin)

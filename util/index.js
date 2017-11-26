@@ -22,4 +22,23 @@ module.exports = {
             password: Joi.string().required()
         })
     },
+
+    dirExits: async (dir, fs) => {
+        return new Promise((resolve, reject) => {
+            fs.stat(dir, (err, status) => {
+               if(err){
+                console.log('User directory doesn\'t exist. Creating one...');
+                return fs.mkdir(dir, () => {
+                    return resolve(true);
+                });
+               }
+
+               if(!status.isDirectory()){
+                   return reject(new Error(dir+' is not a directory'));
+               } else {
+                   return resolve(true);
+               }
+            });
+        });
+    },
 };
