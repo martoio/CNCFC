@@ -23,7 +23,7 @@ const PrintSchema = new Schema({
     },
     status:{
         type: String,
-        enum: ['PRINTING', 'CAM', 'NOT_STARTED', 'ERROR'],
+        enum: ['NOT_STARTED', 'CAM_FINISHED', 'QUEUED', 'PRINTING', 'ERROR' ],
         default: 'NOT_STARTED'
     },
     created: {

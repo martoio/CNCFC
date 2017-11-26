@@ -4,14 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var authenticate = require('./controllers/auth');
 var session = require('express-session');
+var debug = require('debug')('cncfc:server');
+var http = require('http');
+const util = require('./util/index');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/CNCFC');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -47,17 +48,16 @@ app.use(express.static(path.join(__dirname, 'print-uploads')));
 
 
 app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -67,4 +67,21 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//TODO: This needs serious cleanup:
+const port = util.serverUtil.normalizePort(process.env.PORT || '3000')
+app.set('port', port);
+
+let server = http.createServer(app);
+server.listen(port);
+server.on('error', util.serverUtil.onError);
+server.on('listening', util.serverUtil.onListening.bind(null, server));
 module.exports = app;
+
+
+let io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+    console.log(socket.id);
+
+    socket.on('message', console.log);
+});
