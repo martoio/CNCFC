@@ -10,7 +10,7 @@
             <ul class="timeline">
                 <li class="timeline-inverted">
                     <div class="timeline-badge">
-                        <i class="glyphicon glyphicon-check"></i>
+                        <i class="flaticon-wait"></i>
                     </div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
@@ -22,7 +22,9 @@
                     </div>
                 </li>
                 <li class="timeline-inverted">
-                    <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
+                    <div class="timeline-badge danger">
+                        <i class="flaticon-error"></i>
+                    </div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
                             <h4 class="timeline-title">Converting CAM</h4>
@@ -33,7 +35,9 @@
                     </div>
                 </li>
                 <li class="timeline-inverted">
-                    <div class="timeline-badge success"><i class="glyphicon glyphicon-thumbs-up"></i></div>
+                    <div class="timeline-badge success">
+                        <i class="flaticon-success"></i>
+                    </div>
                     <div class="timeline-panel">
                         <div class="timeline-heading">
                             <h4 class="timeline-title">Checking CNC</h4>
@@ -50,7 +54,7 @@
         <!-- END OF TIMELINE-->
         <div class="col-4">
             <h2>Print Operations</h2>
-            <button type="button" class="btn btn-danger">CANCEL PRINT</button>
+            <button id="PRINT-CANCEL" type="button" class="btn btn-danger">CANCEL PRINT</button>
         </div>
     </div>
 
@@ -60,7 +64,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
 <script>
 
+    let cancelBtn = document.getElementById('PRINT-CANCEL');
+
     let socket = io.connect('http://localhost:3000/');
     socket.emit('message', {msg: 'YAAAS'});
+
+    cancelBtn.onclick = function () {
+        socket.emit('cancel-print', {command: 'CANCEL'});
+    };
 
 </script>

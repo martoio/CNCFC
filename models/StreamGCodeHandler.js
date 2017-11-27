@@ -7,8 +7,8 @@ const Handler = require('./Handler');
  * @param Manager - handle to the PrintManager;
  * @constructor
  */
-let StreamGCodeHandler = function (name, Manager) {
-    Handler.call(this, name, Manager);
+let StreamGCodeHandler = function (name) {
+    Handler.call(this, name);
 };
 StreamGCodeHandler.prototype = Object.create(Handler.prototype);
 
@@ -18,14 +18,14 @@ StreamGCodeHandler.prototype.run = function (print) {
 
     if(print.status === 'CAM_FINISHED'){
     this.Manager.currentProcess = Process.start({
-        cmd: process.env.PYTHON,
+        cmd: process.env.CNC_PYTHON,
         /**
          * args: path to stream.py, gcode filename, serial port
          */
         args: [
-            process.env.STREAMPY,
+            process.env.CNC_STREAMPY,
             print.gCodePath,
-            process.env.SERIAL_PORT
+            process.env.CNC_SERIAL_PORT
 
         ],
         events: {
@@ -36,7 +36,6 @@ StreamGCodeHandler.prototype.run = function (print) {
                 console.error(`${self.name} error: ${error}`);
             },
             close: function(code){
-
                 console.log(`${self.name} process has ended with code ${code}`);
                 self.Manager.currentProcess = null;
                 if (code === 0){

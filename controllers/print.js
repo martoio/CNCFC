@@ -4,9 +4,11 @@ const formidable 	= require('formidable');
 
 const Print = require('../models/Print');
 const User = require('../models/User');
-const PrintManager = require('../models/PrintManager')(null);
+const CNC = require('../models/CNC');
 const util = require('../util/index');
 module.exports = {
+    //TODO: Refactor this so that it uses the PrintManager
+    //TODO: Create and attach a FileUploadHandler to manage all of this mess below
     uploadFile: async function(req, res){
 
         let form = new formidable.IncomingForm();
@@ -66,24 +68,8 @@ module.exports = {
         const printID = req.session.user.lastPrint;
         let print = await Print.findById(printID);
         console.log(print);
+        CNC.printFile(print);
 
-        if(print.status === 'NOT_STARTED'){
-            //run CAM and update print to include gCode path;
-            console.log('Running CAM conversion...but not really tho');
-            print = await PrintManager.runCAM(print);
-        }
-
-        // const fileName ='C:/Users/Martin/Desktop/Tufts/Year 4/Sem 1/ME 43/CNCFC/Tests/streampy/line.ngc';
-        const fileName ='F:/ME43/turkey-chicken/turkey-01.ngc';
-
-
-
-        PrintManager.printFile(fileName);
-
-
-
-
-        //SEND TO CNC
     }
 
 };

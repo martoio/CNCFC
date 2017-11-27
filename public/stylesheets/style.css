@@ -271,6 +271,14 @@ Styles taken from: https://codepen.io/bsngr/pen/Ifvbi
   /*float: right;*/
 }
 
+.timeline .flaticon-wait:before,
+.timeline .flaticon-error:before,
+.timeline .flaticon-success:before
+{
+    margin: 0;
+
+}
+
 .timeline > li.timeline-inverted > .timeline-panel:before {
   border-left-width: 0;
   border-right-width: 15px;

@@ -1,14 +1,5 @@
 const {spawn} = require('child_process');
 
-// let Process = function(params){
-//
-//     this.childProcess = null;
-//     this.opts = params;
-//
-// };
-//
-// Process.prototype = {}
-
 module.exports = {
     start: function(opts){
         this.opts = opts;

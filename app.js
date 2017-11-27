@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -68,7 +69,7 @@ app.use(function(err, req, res) {
 });
 
 //TODO: This needs serious cleanup:
-const port = util.serverUtil.normalizePort(process.env.PORT || '3000')
+/*const port = util.serverUtil.normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 let server = http.createServer(app);
@@ -83,5 +84,7 @@ let io = require('socket.io')(server);
 io.on('connection', (socket) => {
     console.log(socket.id);
 
-    socket.on('message', console.log);
+    // socket.on('message', console.log);
 });
+*/
+module.exports = app;

@@ -1,15 +1,15 @@
 const Process = require('./Process');
 const Handler = require('./Handler');
-const PYCAM = process.env.PYCAM;
+const PYCAM = process.env.CNC_PYCAM;
+const CAM_STUB = 'C:/Users/Martin/Desktop/Tufts/Year 4/Sem 1/ME 43/CNCFC/cncfc/models/longRunProcess.js';
 
 /**
  * Extend Handler object
  * @param name - name for the CAMHandler, suggested: 'CAM';
- * @param Manager - handle to the PrintManager;
  * @constructor
  */
-let CAMHandler = function(name, Manager){
-    Handler.call(this, name, Manager);
+let CAMHandler = function(name){
+    Handler.call(this, name);
 };
 CAMHandler.prototype = Object.create(Handler.prototype);
 
@@ -26,7 +26,7 @@ CAMHandler.prototype.run = function(print){
         this.Manager.currentProcess = Process.start({
             cmd: 'node',
             args: [
-                'longRunProcess.js'
+                CAM_STUB
             ],
             events: {
                 data: function(data){
@@ -36,7 +36,6 @@ CAMHandler.prototype.run = function(print){
                     console.error(`${self.name} error: ${error}`);
                 },
                 close: function(code){
-
                     console.log(`${self.name} process has ended with code ${code}`);
                     self.Manager.currentProcess = null;
                     if (code === 0){
