@@ -64,6 +64,7 @@ module.exports = {
     },
 
     printFile: async function(req, res){
+        //TODO: fix 500 error when you just hit the /GET page;
         res.render('print/print');
         const printID = req.session.user.lastPrint;
         let print = await Print.findById(printID);
