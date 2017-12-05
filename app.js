@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var debug = require('debug')('cncfc:server');
 var http = require('http');
+const exphbs = require('express-handlebars');
 const util = require('./util/index');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -16,6 +17,15 @@ mongoose.connect('mongodb://localhost/CNCFC');
 var index = require('./routes/index');
 
 var app = express();
+
+// view engine setup
+app.engine('hbs', exphbs({
+    defaultLayout: 'layout',
+    extname: '.hbs',
+    layoutsDir: __dirname+'/views/layouts'
+}));
+app.set('views', path.join(__dirname, 'views/'));
+app.set('view engine', 'hbs');
 
 //set session
 app.use(session({
@@ -33,9 +43,6 @@ app.use(function(req, res, next){
 });
 
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

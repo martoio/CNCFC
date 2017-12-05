@@ -1,4 +1,14 @@
-{{> logo }}
+<style>
+	html,body{
+		height: 100%;
+	}
+	body{
+		display: flex;
+		align-items: center;
+	}
+</style>
+
+
 
 <div class="container" id="login">
 	<h1 id="auth-header" class="text-light">Please Log in</h1>
@@ -29,10 +39,15 @@
 			
 		</div>
 		
-		<button type="submit" class="btn btn-primary">Login</button>
+		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 
-{{> flash_message }}
+{{#if sessionFlash.message}}
+<br>
+	<div class="{{ sessionFlash.type }}">
+		{{ sessionFlash.message }}
+	</div>
+{{/if}}
 
 </div>
 	
