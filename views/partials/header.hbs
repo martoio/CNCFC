@@ -1,12 +1,15 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container">
-        {{#if backEnabled}}
-            <a class="nav-link" href="/">&lt;Back</a>
-        {{/if}}
-
+        <div class="left">
+            {{#if backEnabled}}
+                <a class="btn btn-primary" href="/">&lt;Back</a>
+            {{/if}}
+        </div>
+        <h1 class="text-light">{{title}}</h1>
         <!--<a href="A" class="navbar-brand">Print Preview</a>-->
         <div class="dash-link">
-            <a href="#">Dashboard</a>
+            <a class="btn btn-warning" href="#">Dashboard</a>
+            <a class="btn btn-danger" href="/logout">Logout</a>
         </div>
     </div>
 

@@ -27,10 +27,6 @@ module.exports = {
         }
         req.session.isAuthenticated = true;
         req.session.user = user;
-        req.session.sessionFlash = {
-            type: 'alert alert-success',
-            message: 'Auth success. Welcome! You are signed in as a: '+ ((user.isTeacher) ? 'teacher' : 'student' )
-        };
         return res.redirect('/');
     },
     isAuthenticated: (req, res, next) => {
@@ -54,7 +50,7 @@ module.exports = {
         console.log(users);
 
         res.render('settings/admin', {
-            title: 'Admin',
+            title: 'Admin panel',
             users: users,
             backEnabled: true
         });
@@ -89,6 +85,17 @@ module.exports = {
         res.status(404);
         //if user doesn't exist => create + save new user;
         //redirect back with flash message;
+    },
+    logout: async (req, res, next) => {
+        req.session.isAuthenticated = false;
+        req.session.user = null;
+        req.session.sessionFlash = {
+            type: 'alert alert-success',
+            message: 'You have been logged out!'
+        };
+
+        console.log(req.session);
+        return res.redirect('/login');
     },
 
 };

@@ -40,6 +40,10 @@ UserSchema.methods.isValidPassword = async function (newPassword) {
     }
 };
 
+UserSchema.methods.createPassword = async function(newPassword){
+    return bcrypt.hash(newPassword, await bcrypt.genSalt(10));
+};
+
 //create a model and export
 const User = mongoose.model('user', UserSchema);
 module.exports = User;

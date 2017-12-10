@@ -12,11 +12,17 @@ NAVBAR
  */
 
 .navbar>.container{
+  display: flex;
   justify-content: left;
 }
-
+.navbar>.container .left{
+  width: 25%;
+}
+.navbar>.container h1{
+  width: 50%;
+}
 .navbar>.container>.dash-link {
-  flex-grow: 1;
+  width: 25%;
   text-align: right;
 }
 .navbar>.container>.dash-link a{
@@ -33,6 +39,21 @@ NAVBAR
   align-items: center;
 }
 
+/*
+  ADMIN SETTINGS
+*/
+.container .list-group .list-group-item{
+  display: flex;
+  align-items: center;
+}
+
+.container .list-group .list-group-item p{
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+.container .list-group .list-group-item a{
+  margin-right: 12px;
+}
 
 
 /* Index Dashboard */

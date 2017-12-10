@@ -5,59 +5,20 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <div class="card bg-dark text-light">
-                <div class="icon-image card-img-top">
-                    <i class="flaticon-usb"></i>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Load file</h4>
-                    <p class="card-text">Load from a library.</p>
-                    {{!-- Magic trickery to display a pretty file input field --}}
-
-                    <a href="/lib" class="btn btn-primary">Choose File</a>
-
-
-                    <!--<form action="/print-file" method="POST" class="file-select" enctype="multipart/form-data">-->
-                        <!--<label for="file-choose" id="file-label" class="btn btn-primary">Choose File</label>-->
-                        <!--<input type="file" name="file" id="file-choose" class="hide-file">-->
-                        <!--<button id="accept-file" class="file-accept btn">-->
-                            <!--<i class="material-icons">check</i>-->
-                        <!--</button>-->
-                        <!---->
-                    <!--</form>-->
-                    {{!-- <a href="#" class="btn btn-primary">Choose File</a> <!-- Text capitalization done in CSS --> --}}
-                </div>
-            </div>        
+            {{> card-upload}}
         </div>
-        <!--<div class="col">-->
-            <!--<div class="card bg-dark text-light">-->
-                <!--<div class="icon-image card-img-top">-->
-                    <!--<i class="flaticon-sketchbook"></i>-->
-                <!--</div>-->
-                <!--<div class="card-body">-->
-                    <!--<h4 class="card-title">Free sketch</h4>-->
-                    <!--<p class="card-text">Draw a 2D sketch to carve into foam!</p>-->
-                    <!--<a href="#" class="btn btn-primary">Sketch</a>-->
-                <!--</div>-->
-            <!--</div>        -->
-        <!--</div>-->
-
+        <div class="col">
+            {{> card-lib}}
+        </div>
        {{#if showTeacherOptions}}
         <div class="col">
-            <div class="card bg-dark text-light">
-                <div class="icon-image card-img-top">
-                    <i class="flaticon-admin-with-cogwheels"></i>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Admin Settings</h4>
-                    <p class="card-text">Advanced administrative settings.</p>
-                    <a href="/admin-settings" class="btn btn-primary">Settings</a>
-                </div>
-            </div>        
+            {{> card-admin-settings}}
         </div>
         {{/if}}
     </div>
 </div>
+
+{{> flash-message}}
 
 <script>
 

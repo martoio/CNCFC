@@ -5,19 +5,34 @@ const AuthController =  require('../controllers/auth');
 const PrintController = require('../controllers/print');
 const CNC = require('../models/CNC');
 const path = require('path');
+const lib = require('../models/Library');
 
 /* GET home page. */
 router.get('/', AuthController.isAuthenticated, function(req, res) {
-    res.render('home/index', { title: 'Express', showTeacherOptions: (req.session.user.isTeacher === true), backEnabled: false});
+    res.render('home/index', {
+        title: 'Home',
+        showTeacherOptions: (req.session.user.isTeacher === true),
+        backEnabled: false}
+    );
 });
 
 /**
  * STD-LIB mockery
  */
-router.get('/lib', function (req, res) {
+router.get('/lib', AuthController.isAuthenticated, function (req, res) {
+    let libChunks = [];
+    let chunkSize = 4;
+    for(let i =0; i < lib.length; i += chunkSize){
+        libChunks.push(lib.slice(i, i+chunkSize));
+    }
+    console.log(libChunks);
+
+
     res.render('print/lib', {
+        title: 'Library',
         backEnabled: true,
-        back: '/'
+        back: '/',
+        lib: libChunks
     });
 });
 
@@ -118,12 +133,14 @@ router.route('/print-file')
     .post(PrintController.uploadFile);
 
 router.get('/print', AuthController.isAuthenticated, PrintController.printFile);
+router.get('/print/:libId', AuthController.isAuthenticated, PrintController.libUpload);
 
 router.route('/admin-settings')
     .all(AuthController.isAuthenticated, AuthController.isAdmin)
     .get(AuthController.getAdminSettings)
     .post(validateBody(schemas.authSchema), AuthController.addNewUser);
 
+router.get('/logout', AuthController.isAuthenticated, AuthController.logout);
 
 module.exports = router;
 
