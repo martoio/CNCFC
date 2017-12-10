@@ -7,6 +7,21 @@ a {
   color: #00B7FF;
 }
 
+/*
+NAVBAR
+ */
+
+.navbar>.container{
+  justify-content: left;
+}
+
+.navbar>.container>.dash-link {
+  flex-grow: 1;
+  text-align: right;
+}
+.navbar>.container>.dash-link a{
+  display: inline;
+}
 
 /* AUTH */
 

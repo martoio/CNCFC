@@ -1,3 +1,4 @@
+{{> header}}
 <div class="container bg-light">
     <div class="page-header">
         <h1 id="timeline">Print Progress</h1>
@@ -61,22 +62,22 @@
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-<script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>-->
+<!--<script>-->
 
-    let cancelBtn = document.getElementById('PRINT-CANCEL');
+    <!--let cancelBtn = document.getElementById('PRINT-CANCEL');-->
 
-    let socket = io.connect('http://localhost:3003/');
-    socket.emit('message', {msg: 'YAAAS'});
+    <!--let socket = io.connect('http://localhost:3003/');-->
+    <!--socket.emit('message', {msg: 'YAAAS'});-->
 
-    cancelBtn.onclick = function () {
-        socket.emit('cancel-print', {command: 'CANCEL'});
-    };
+    <!--cancelBtn.onclick = function () {-->
+        <!--socket.emit('cancel-print', {command: 'CANCEL'});-->
+    <!--};-->
 
-    socket.on('cancel-print-success', console.log);
+    <!--socket.on('cancel-print-success', console.log);-->
 
-    socket.on('update', function(msg){
+    <!--socket.on('update', function(msg){-->
 
-    });
+    <!--});-->
 
-</script>
+<!--</script>-->

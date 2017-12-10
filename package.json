@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "prestart": "start mongod",
+    "start": "nodemon ./bin/www",
+    "poststop": "mongo admin --eval 'db.shutdownServer()"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

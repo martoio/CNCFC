@@ -31,7 +31,7 @@ CNC.prototype = {
     },
     attachUIBus(io){
         this.uiEventBus = io;
-
+        let self = this;
         this.uiEventBus.on('connection', (socket) => {
             let self = this;
             console.log(socket.id);
@@ -39,7 +39,12 @@ CNC.prototype = {
 
             socket.on('cancel-print', function () {
                 self.PrintManager.killProcess('SIGINT');
+                socket.emit('cancel-print-success', {messag: 'Print successfully canceled.'});
             });
+
+
+            // self.PrintManager.eventBus.on('');
+
 
         });
 

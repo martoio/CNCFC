@@ -42,7 +42,7 @@ StreamGCodeHandler.prototype.run = function (print) {
                     msg = 'Gcode stream success';
                     self.eventBus.emit('handlerComplete', {msg, process: self.name});
                     print.status = 'PRINTED';
-                    print.gCodePath = 'C:/Users/Martin/Desktop/Tufts/Year 4/Sem 1/ME 43/CNCFC/cncfc/gcode/line.ngc';
+                    // print.gCodePath = 'C:/Users/Martin/Desktop/Tufts/Year 4/Sem 1/ME 43/CNCFC/cncfc/gcode/line.ngc';
                     if(self.next !== null) {
                         self.next.run(print);
                     }

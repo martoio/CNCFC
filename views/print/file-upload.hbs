@@ -1,28 +1,28 @@
-<nav class="nav bg-dark text-light">
-    <a class="nav-link active" href="/">
-        <i class="material-icons">chevron_left</i>
-        <span>HOME</span>
-    </a>  
-    <h1>Print Preview</h1>
-</nav>
+<!--<nav class="nav bg-dark text-light">-->
+    <!--<a class="nav-link active" href="/">-->
+        <!--<i class="material-icons">chevron_left</i>-->
+        <!--<span>HOME</span>-->
+    <!--</a>  -->
+    <!--<h1>Print Preview</h1>-->
+<!--</nav>-->
 
-
+{{> header }}
 <section id="preview" class="container">
     <div class="viewer">
         <div class="img">
             <img src="{{previewPath}}" alt="">
         </div>
-        <div class="code">
-            {{#if gcode}}
-                <pre>{{gcode}}</pre>
-            {{/if}}
-        </div>
+        <!--<div class="code">-->
+            <!--{{#if gcode}}-->
+                <!--<pre>{{gcode}}</pre>-->
+            <!--{{/if}}-->
+        <!--</div>-->
 
     </div>
-    <div class="controls">
-        <i class="flaticon-picture  bg-dark text-light active" data-toggle="img"></i>
-        <i class="flaticon-html-coding bg-dark text-light" data-toggle="code"></i>
-    </div>
+    <!--<div class="controls">-->
+        <!--<i class="flaticon-picture  bg-dark text-light active" data-toggle="img"></i>-->
+        <!--<i class="flaticon-html-coding bg-dark text-light" data-toggle="code"></i>-->
+    <!--</div>-->
 </section>
 
 <section class="container">
@@ -69,7 +69,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Cut Settings</h4>
                     <p class="card-text">Adjust settings</p>
-                    <a href="#" class="btn btn-primary">Settings</a>
+                    <a href="#" class="btn btn-primary disabled" role="button" aria-disabled="true">Settings</a>
                 </div>
             </div>        
         </div>

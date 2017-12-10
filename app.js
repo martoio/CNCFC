@@ -53,6 +53,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //second static file import to point at the print-uploads folder. Convenience of getting the SVG preview working quickly
 app.use(express.static(path.join(__dirname, 'print-uploads')));
+app.use(express.static(path.join(__dirname, 'std-lib')));
 
 
 app.use('/', index);

@@ -53,7 +53,11 @@ module.exports = {
 
         console.log(users);
 
-        res.render('settings/admin', {title: 'Admin', users: users});
+        res.render('settings/admin', {
+            title: 'Admin',
+            users: users,
+            backEnabled: true
+        });
     },
     addNewUser: async (req, res, next) => {
         const {username, password} = req.value.body;
