@@ -4,7 +4,6 @@ module.exports = {
 
     login: async (req, res, next) => {
         const {username, password} = req.value.body;
-        console.log(username, password);
         //check if user exists
         const user = await User.findOne({ username });
         //if user doesn't exist, exit with 401

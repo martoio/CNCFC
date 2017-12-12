@@ -1,64 +1,19 @@
-<!--<nav class="nav bg-dark text-light">-->
-    <!--<a class="nav-link active" href="/">-->
-        <!--<i class="material-icons">chevron_left</i>-->
-        <!--<span>HOME</span>-->
-    <!--</a>  -->
-    <!--<h1>Print Preview</h1>-->
-<!--</nav>-->
-
 {{> header }}
 <section id="preview" class="container">
     <div class="viewer">
         <div class="img">
             <img src="{{previewPath}}" alt="">
         </div>
-        <!--<div class="code">-->
-            <!--{{#if gcode}}-->
-                <!--<pre>{{gcode}}</pre>-->
-            <!--{{/if}}-->
-        <!--</div>-->
-
     </div>
-    <!--<div class="controls">-->
-        <!--<i class="flaticon-picture  bg-dark text-light active" data-toggle="img"></i>-->
-        <!--<i class="flaticon-html-coding bg-dark text-light" data-toggle="code"></i>-->
-    <!--</div>-->
 </section>
 
 <section class="container">
     <div class="row">
         <div class="col">
-            <div class="card bg-dark text-light">
-                <div class="icon-image card-img-top">
-                    <i class="flaticon-usb"></i>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Load file</h4>
-                    <p class="card-text">Load from a file attached via USB.</p>
-                    {{!-- Magic trickery to display a pretty file input field --}}
-                    <form action="/print-file" method="POST" class="file-select" enctype="multipart/form-data">
-                        <label for="file-choose" id="file-label" class="btn btn-primary">Choose File</label>
-                        <input type="file" name="file" id="file-choose" class="hide-file">
-                        <button id="accept-file" class="file-accept btn">
-                            <i class="material-icons">check</i>
-                        </button>
-                        
-                    </form>
-                    {{!-- <a href="#" class="btn btn-primary">Choose File</a> <!-- Text capitalization done in CSS --> --}}
-                </div>
-            </div>        
+            {{> card-lib}}
         </div>
         <div class="col">
-            <div class="card bg-dark text-light">
-                <div class="icon-image card-img-top">
-                    <i class="flaticon-drilling-machine"></i>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Cut</h4>
-                    <p class="card-text">Cut file from foam</p>
-                    <a href="/print" class="btn btn-primary">Cut</a>
-                </div>
-            </div>        
+            {{> card-cut }}
         </div>
 
         <div class="col">
@@ -69,7 +24,17 @@
                 <div class="card-body">
                     <h4 class="card-title">Cut Settings</h4>
                     <p class="card-text">Adjust settings</p>
-                    <a href="#" class="btn btn-primary disabled" role="button" aria-disabled="true">Settings</a>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" name="cut-type" value="half" class="form-check-input">
+                            Half cut
+                        </label>
+                        <label class="form-check-label">
+                            <input type="radio" name="cut-type" checked="true" value="full" class="form-check-input">
+                            Full cut
+                        </label>
+                    </div>
+                    <!--<a href="#" class="btn btn-primary disabled" role="button" aria-disabled="true">Settings</a>-->
                 </div>
             </div>        
         </div>
@@ -77,6 +42,13 @@
 </section>
 
 <script>
+
+    $("input[name='cut-type']").change(function () {
+        let chosen = this.value;
+        $('#cut-btn').attr('href', '/print?cut-type='+chosen);
+    });
+
+
 
 $('#preview i').on('click', function(){
     if($(this).hasClass('active')){

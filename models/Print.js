@@ -23,7 +23,13 @@ const PrintSchema = new Schema({
     },
     status:{
         type: String,
-        enum: ['NOT_STARTED', 'CAM_FINISHED', 'QUEUED', 'PRINTING', 'ERROR' ],
+        enum: [
+            'NOT_STARTED',
+            'CAM_FINISHED',
+            'GCODE_FINISHED',
+            'PRINTING',
+            'ERROR'
+        ],
         default: 'NOT_STARTED'
     },
     created: {
@@ -33,6 +39,9 @@ const PrintSchema = new Schema({
     updated: {
         type: Date,
         default: Date.now
+    },
+    intermediateGcode: {
+        type: String
     }
 });
 //create a model and export

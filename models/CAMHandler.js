@@ -1,15 +1,29 @@
 const Process = require('./Process');
 const Handler = require('./Handler');
+const path = require('path');
 const PYCAM = process.env.CNC_PYCAM;
 const CAM_STUB = 'C:/Users/Martin/Desktop/Tufts/Year 4/Sem 1/ME 43/CNCFC/cncfc/models/longRunProcess.js';
+
+
+const PYCAM_ARGS = [
+    './pycam',
+    '--export-gcode={FILE_PATH_TO_EXPORT}',
+    '--safety-height=25.0000',
+    '--tool-shape=cylindrical',
+    '--tool-size=3.1750',
+    '--tool-feedrate=300',
+    '--process-path-strategy=engrave'
+
+];
 
 /**
  * Extend Handler object
  * @param name - name for the CAMHandler, suggested: 'CAM';
  * @constructor
  */
-let CAMHandler = function(name){
+let CAMHandler = function(name, cutType){
     Handler.call(this, name);
+    this.cutType = cutType;
 };
 CAMHandler.prototype = Object.create(Handler.prototype);
 
@@ -20,13 +34,18 @@ CAMHandler.prototype = Object.create(Handler.prototype);
  */
 CAMHandler.prototype.run = function(print){
     let msg = '';
+    console.log('\n\n'+print+'\n\n');
+    //replace svg with ngc extension;
+    const intermediateGcodeName = path.join(__dirname, '../print-uploads', print.filename.replace('svg', 'ngc'));
+
+
     if(print.status === 'NOT_STARTED'){
         // console.log(`${this.name} handling print.`);
         const self = this;
         this.Manager.currentProcess = Process.start({
             cmd: 'node',
             args: [
-                CAM_STUB
+                process.env.CNC_STUB
             ],
             events: {
                 data: function(data){
@@ -36,12 +55,13 @@ CAMHandler.prototype.run = function(print){
                     console.error(`${self.name} error: ${error}`);
                 },
                 close: function(code){
-                    console.log(`${self.name} process has ended with code ${code}`);
+                    console.log(`========= ${self.name} process has ended with code ${code} =========`);
                     self.Manager.currentProcess = null;
                     if (code === 0){
                         msg = 'CAM success';
                         self.eventBus.emit('handlerComplete', {msg, process: self.name});
                         print.status = 'CAM_FINISHED';
+                        print.intermediateGcode = intermediateGcodeName;
                         // print.gCodePath = 'C:/Users/Martin/Desktop/Tufts/Year 4/Sem 1/ME 43/CNCFC/cncfc/gcode/line.ngc';
                         if(self.next !== null) {
                             self.next.run(print);
@@ -50,15 +70,19 @@ CAMHandler.prototype.run = function(print){
 
                 },
                 childError: function(err){
-                    console.err(err);
+                    console.error(err);
                 }
             }
         });
 
 
     } else{
-        // console.log(`${this.name} cannot handle print. Passing to next handler`);
+        console.log(`${this.name} cannot handle print. Passing to next handler`);
         msg = 'CAM not run, passed down';
+        if(this.next !== null || typeof this.next !== 'undefined'){
+            this.next.run(print);
+        }
+
     }
 
 

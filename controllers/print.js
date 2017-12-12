@@ -92,21 +92,38 @@ module.exports = {
         res.render('print/file-upload', {
             title: 'Print Preview',
             previewPath: '/'+libFile.svg,
-            printId: print.id
+            printId: print.id,
+            backEnabled: true
         });
     },
 
 
-        printFile: async function(req, res){
+    printFile: async function(req, res){
         //TODO: fix 500 error when you just hit the /GET page;
+        const printID = req.session.user.lastPrint;
+        let print = await Print.findById(printID);
+
+        let cutType = req.query['cut-type'];
+        if (cutType === 'full'){
+            print.settings = {cutType: 'full'}
+        } else if (cutType === 'half'){
+            print.settings = {cutType: 'half'};
+        } else {
+            req.session.sessionFlash = {
+                type: 'alert alert-danger',
+                message: 'Incorrect file settings'
+            };
+            return res.redirect('/');
+        }
+
+        console.log(print);
+
         res.render('print/print', {
             title: 'Printing file',
             backEnabled: true
         });
-        const printID = req.session.user.lastPrint;
-        let print = await Print.findById(printID);
-        console.log(print);
-        //CNC.printFile(print);
+
+        CNC.printFile(print);
 
     }
 
