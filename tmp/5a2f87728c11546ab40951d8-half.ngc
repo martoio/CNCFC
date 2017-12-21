@@ -1,0 +1,41 @@
+;PYCAM-META-DATA: Filename: /media/martoio/MARTOIO/ME43/std_lib/svg/012-piece-of-cake.svg
+;PYCAM-META-DATA: Timestamp: 2017-12-06 01:58:16.894903
+;PYCAM-META-DATA: Version: 0.5.1
+;Estimated machine time: 10 minutes
+G40 (disable tool radius compensation)
+G49 (disable tool length compensation)
+G80 (cancel modal motion)
+G54 (select coordinate system 1)
+G90 (disable incremental moves)
+G21 (metric)
+G61 (exact path mode)
+F400.00000
+S1.00000
+;PYCAM_TOOLPATH_SETTINGS: START
+;[Bounds]
+;maxz = 0.0
+;maxx = 163.4489
+;maxy = 130.33285
+;minx = -8.9499
+;miny = -5.93935
+;minz = 0.0
+;
+;[Tool]
+;torus_radius = 0.25
+;speed = 1.0
+;shape = CylindricalCutter
+;tool_radius = 0.5
+;feedrate = 400.0
+;
+;[Process]
+;engrave_offset = 0.0
+;step_down = 1.0
+;generator = EngraveCutter
+;postprocessor = SimpleCutter
+;overlap_percent = 0
+;milling_style = conventional
+;material_allowance = 0.0
+;pocketing_type = none
+;path_direction = x
+;
+;PYCAM_TOOLPATH_SETTINGS: END

@@ -1,17 +1,18 @@
-const gcodeFile = process.argv[2];
+const OLD_GCODE = process.argv[2];
 const cutType = process.argv[3];
-const newGcode = process.argv[4];
-const safetyHeight = '-25.0000';
+const TMP_GCODE = process.argv[4];
+const safetyHeight = process.argv[5];
+const readline = require('readline');
 
 const cutDepth = (cutType === 'full') ? '-53.0000' : '-41.5000';
 const fs = require('fs');
 
-let outStream = fs.createWriteStream(newGcode);
+let outStream = fs.createWriteStream(TMP_GCODE);
 
-const lineReader = require('readline').createInterface({
-    input: fs.createReadStream(gcodeFile),
+const lineReader = readline.createInterface({
+    input: fs.createReadStream(OLD_GCODE),
 });
-
+let buff = '';
 lineReader.on('line', function (line) {
 
     if (line.includes('Z')){
@@ -27,11 +28,15 @@ lineReader.on('line', function (line) {
             line = line.replace(oldPlunge, cutDepth);
         }
     }
-    console.log('Line from file:', line);
-    outStream.write(line+'\n');
+    buff += line+'\n';
+    // console.log('Line from file:', line);
 });
 
 lineReader.on('close', function () {
     console.log('CLOSE FILE');
-    outStream.close();
+    outStream.write(buff, function () {
+        console.log('done-writing');
+        outStream.close();
+    });
+
 });

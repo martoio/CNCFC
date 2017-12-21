@@ -3,16 +3,17 @@ const Handler = require('./Handler');
 const path = require('path');
 const PYCAM = process.env.CNC_PYCAM;
 const CAM_STUB = 'C:/Users/Martin/Desktop/Tufts/Year 4/Sem 1/ME 43/CNCFC/cncfc/models/longRunProcess.js';
-
+const env = process.env;
 
 const PYCAM_ARGS = [
     './pycam',
     '--export-gcode={FILE_PATH_TO_EXPORT}',
-    '--safety-height=25.0000',
-    '--tool-shape=cylindrical',
-    '--tool-size=3.1750',
-    '--tool-feedrate=300',
-    '--process-path-strategy=engrave'
+    '--safety-height='+env.CNC_PYCAM_SAFETY_HEIGHT,
+    '--tool-shape='+env.CNC_PYCAM_TOOL_SHAPE,
+    '--tool-size='+env.CNC_PYCAM_TOOL_SIZE,
+    '--tool-feedrate='+env.CNC_PYCAM_TOOL_FEEDRATE,
+    '--process-path-strategy='+env.CNC_PYCAM_PROCESS,
+    '{FILE TO PROCESS}'
 
 ];
 
@@ -37,15 +38,22 @@ CAMHandler.prototype.run = function(print){
     console.log('\n\n'+print+'\n\n');
     //replace svg with ngc extension;
     const intermediateGcodeName = path.join(__dirname, '../print-uploads', print.filename.replace('svg', 'ngc'));
-
+    const pathToSVGFile = path.join(__dirname, '../print-uploads', print.filename);
 
     if(print.status === 'NOT_STARTED'){
         // console.log(`${this.name} handling print.`);
         const self = this;
         this.Manager.currentProcess = Process.start({
-            cmd: 'node',
+            cmd: env.CNC_PYTHON,
             args: [
-                process.env.CNC_STUB
+                env.CNC_PYCAM,
+                `--export-gcode=${intermediateGcodeName}`,
+                '--safety-height='+env.CNC_PYCAM_SAFETY_HEIGHT,
+                '--tool-shape='+env.CNC_PYCAM_TOOL_SHAPE,
+                '--tool-size='+env.CNC_PYCAM_TOOL_SIZE,
+                '--tool-feedrate='+env.CNC_PYCAM_TOOL_FEEDRATE,
+                '--process-path-strategy='+env.CNC_PYCAM_PROCESS,
+                pathToSVGFile,
             ],
             events: {
                 data: function(data){

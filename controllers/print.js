@@ -82,7 +82,8 @@ module.exports = {
             owner: req.session.user._id,
             filename: libFile.svg,
             gCodePath: libFile.gcode,
-            status: 'CAM_FINISHED',
+            status: 'STD-LIB',
+            tmpGcode: libFile.gcode
         });
 
         const r = await print.save();

@@ -28,7 +28,8 @@ const PrintSchema = new Schema({
             'CAM_FINISHED',
             'GCODE_FINISHED',
             'PRINTING',
-            'ERROR'
+            'ERROR',
+            'STD-LIB'
         ],
         default: 'NOT_STARTED'
     },
@@ -42,6 +43,9 @@ const PrintSchema = new Schema({
     },
     intermediateGcode: {
         type: String
+    },
+    tmpGcode:{
+        type: [String]
     }
 });
 //create a model and export

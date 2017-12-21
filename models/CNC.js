@@ -74,7 +74,7 @@ cnc.addHandlers(CAMHandler);
 cnc.addHandlers(ZFixHandlerHalf);
 cnc.addHandlers(ZFixHandlerFull);
 cnc.addHandlers(gCodeHandler1);
-cnc.addHandlers(gCodeHandler2);
+// cnc.addHandlers(gCodeHandler2);
 cnc.attachUIBus(io);
 module.exports = cnc;
 
