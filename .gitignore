@@ -1,8 +1,16 @@
 #ENV variables
 .env
+
 # Logs
 logs
 *.log
+TODO
+
+# Uploaded files
+print-uploads/*
+
+#IDE files
+.idea/*
 
 # Runtime data
 pids

@@ -1,0 +1,35 @@
+{{> header}}
+<style>
+
+    .container .row{
+        margin-bottom: 24px;
+    }
+    .container .row .col{
+        text-align: center;
+    }
+    .container .row img{
+        max-width:200px;
+    }
+
+    .container .row img:hover{
+        box-shadow: #5bc0de 0 0 5px 5px;
+        cursor: pointer;
+    }
+
+</style>
+<div class="container">
+    {{#each lib}}
+        <div class="row">
+            {{#each this}}
+                <div class="col">
+                    <a href="/print/{{this.name}}">
+                        <img src="{{this.svg}}" class="img-thumbnail" alt="">
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+    {{/each}}
+</div>
+
+
+

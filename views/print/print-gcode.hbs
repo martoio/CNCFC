@@ -1,0 +1,83 @@
+{{> header}}
+<div class="container bg-light">
+    <div class="page-header">
+        <h1 id="timeline">Print Progress</h1>
+    </div>
+
+    <div class="row">
+        <!--TIMELINE COLUMN-->
+        <div class="col-8">
+
+            <ul class="timeline">
+                <li class="timeline-inverted">
+                    <div class="timeline-badge">
+                        <i class="flaticon-wait"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">Pre-processing</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Setting up magic.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="timeline-inverted">
+                    <div class="timeline-badge danger">
+                        <i class="flaticon-error"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">Converting CAM</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Converting drawing into motor commands.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="timeline-inverted">
+                    <div class="timeline-badge success">
+                        <i class="flaticon-success"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4 class="timeline-title">Checking CNC</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Check CNC is set up for print</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+
+        </div>
+        <!-- END OF TIMELINE-->
+        <div class="col-4">
+            <h2>Print Operations</h2>
+            <button id="PRINT-CANCEL" type="button" class="btn btn-danger">CANCEL PRINT</button>
+        </div>
+    </div>
+
+</div>
+
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>-->
+<!--<script>-->
+
+    <!--let cancelBtn = document.getElementById('PRINT-CANCEL');-->
+
+    <!--let socket = io.connect('http://localhost:3003/');-->
+    <!--socket.emit('message', {msg: 'YAAAS'});-->
+
+    <!--cancelBtn.onclick = function () {-->
+        <!--socket.emit('cancel-print', {command: 'CANCEL'});-->
+    <!--};-->
+
+    <!--socket.on('cancel-print-success', console.log);-->
+
+    <!--socket.on('update', function(msg){-->
+
+    <!--});-->
+
+<!--</script>-->

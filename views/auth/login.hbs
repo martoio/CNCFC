@@ -1,1 +1,38 @@
-<h1>Please Log in</h1>
+{{> logo }}
+
+<div class="container" id="login">
+	<h1 id="auth-header" class="text-light">Please Log in</h1>
+
+	<div class="text-light">
+		<p>For safety, you can only use the Foam Cutter if you are trained!</p>
+		<p>Talk to one of the teachers to get trained on the Foam Cutter and get access!</p>
+
+	</div>
+
+	<form class="text-light" method="POST">
+		<div class="form-group">
+			<label for="exampleInputEmail1">Username</label>
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon bg-dark text-light" id="sizing-addon1"><i class="material-icons prefix">person</i></span>
+				<input type="text" name="username" class="form-control bg-dark text-light" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter username" required="true">
+			</div>
+			<small id="emailHelp" class="form-text text-muted">You should have a username if you are authorized.</small>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">Password</label>
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon bg-dark text-light" id="sizing-addon1">
+					<i class="material-icons prefix">lock</i>
+				</span>
+				<input type="password" name="password" class="form-control bg-dark text-light" id="exampleInputPassword1" placeholder="Password" required="true">
+			</div>
+			
+		</div>
+		
+		<button type="submit" class="btn btn-primary">Login</button>
+	</form>
+
+{{> flash-message }}
+
+</div>
+	
